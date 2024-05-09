@@ -7,7 +7,7 @@
           <li>
             Write your checklist in the following format:
             <pre>
-# Name of Section
+# Section
 
 ## Name of Checklist 1
 
@@ -30,6 +30,8 @@
           <strong><a href="#" v-on:click="loadCSVFromWebURL('/assets/checklists/n934gr.md')">my checklist</a></strong>, make changes, and watch them update.
         </p>
         </div>
+        <textarea rows="2" cols="62" v-model="user_plane_name" style="overflow-y:scroll;">
+        </textarea>
         <textarea rows="16" cols="62" v-model="user_raw_data" style="overflow-y:scroll;">
         </textarea>
       </div>
@@ -60,6 +62,7 @@
         </div>
       </div>
     </div>
+      <div style="font-size: 2em; font-weight: bold; text:center;">{{user_plane_name}}</div>
     <div class="threecol">
       <checklist-set
           v-for="(checklistSet, index) in checklistSets"
@@ -86,7 +89,8 @@ export default {
   data() {
     return {
       checklistSets: [],
-      user_raw_data: ''
+      user_raw_data: '',
+      user_plane_name: 'Cessna 172 C-FROP'
     }
   },
   beforeMount() {
@@ -260,7 +264,7 @@ export default {
       var md_data = raw.split("\n");
       var checklist_sets = [];
 
-      while (md_data.length > 0) {
+      while(md_data.length > 0) {
         var row = md_data.shift();
         if (row.substring(0,2) === "# ") {
           checklist_sets.push({title: row.substring(2), checklists: []});
@@ -328,7 +332,7 @@ div.threecol {
   }
   div#right-pane, div .instructions, div#editor, div#upload {
     float: left;
-    display: block;
+    display:block;
     width: 33%;
   }
   div#right-pane .file_container {
